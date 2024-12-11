@@ -1,16 +1,21 @@
 import axios from "axios";
 import { useEffect, useState } from "react";
 
-export function useAllNames() {
-    const [names, setNames] = useState<string[]>();
+interface User {
+    id: number;
+    name: string;
+}
+
+export function useAllUsers() {
+    const [users, setUsers] = useState<User[]>();
     const [isLoading, setLoading] = useState(false);
 
     const requestApi = async () => {
         setLoading(true);
 
         try {
-            const response = await axios.get<string[]>('http://localhost:3000/user/all-names');
-            setNames(response.data);
+            const response = await axios.get<User[]>('http://localhost:3000/user/all');
+            setUsers(response.data);
         } catch(e: unknown) {
             console.log(e);
         }
@@ -23,7 +28,7 @@ export function useAllNames() {
     }, []);
 
     return {
-        names,
+        users,
         isLoading,
         refetch: requestApi,
     }
