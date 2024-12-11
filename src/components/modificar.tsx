@@ -7,7 +7,7 @@ export default function Modificar() {
   const { id } = useParams();
   const navigate = useNavigate(); 
   const { isUpdating, updateUser } = useUpdateUser();
-  const { data: user, isLoading } = useFindUserById(id); // Usar el nuevo hook
+  const { data: user, isLoading } = useFindUserById(id);
   const [name, setName] = useState("");
 
   useEffect(() => {
