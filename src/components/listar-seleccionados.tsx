@@ -1,21 +1,21 @@
-import { useLocation } from "react-router-dom";
-import { useAllUsers } from "../hooks/api/use-all-users";
+import { useLocation, useNavigate } from 'react-router-dom';
 
-export default function ListarSeleccionados() {
+const ListarSeleccionados = () => {
     const location = useLocation();
     const { selectedUsers } = location.state;
-    const { users } = useAllUsers();
-
-    const selectedUserDetails = users?.filter(user => selectedUsers.includes(user.id));
+    const navigate = useNavigate();
 
     return (
         <div>
             <h1>Usuarios Seleccionados</h1>
             <ul>
-                {selectedUserDetails?.map(user => (
-                    <li key={user.id}>{user.name}</li>
+                {selectedUsers.map((userId: number) => (
+                    <li key={userId}>Usuario ID: {userId}</li>
                 ))}
             </ul>
+            <button onClick={() => navigate('/')}>Volver al Listado Principal</button>
         </div>
     );
-}
+};
+
+export default ListarSeleccionados;

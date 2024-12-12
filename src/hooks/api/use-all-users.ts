@@ -4,6 +4,10 @@ import { useEffect, useState } from "react";
 interface User {
     id: number;
     name: string;
+    lastName: string | null;
+    age: number;
+    roleId: number;
+    roleName: string;
 }
 
 export function useAllUsers() {
