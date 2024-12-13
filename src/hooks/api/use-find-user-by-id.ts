@@ -1,7 +1,7 @@
 import { useState, useEffect } from "react";
 import axios from "axios";
 
-export function useFindUserById(id: string | undefined) {
+export function useFindUserById(id?: string) {
   const [data, setData] = useState<{ id: number; name: string; lastName: string; age: number; roleId: number } | null>(null);
   const [isLoading, setIsLoading] = useState(true);
 

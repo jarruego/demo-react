@@ -1,11 +1,12 @@
-import { useAllUsers } from "../hooks/api/use-all-users";
-import { useDeleteUser } from "../hooks/api/use-delete-user";
+
 import { useNavigate } from "react-router-dom";
 import { useSelectedUsers } from "../hooks/use-selected-users";
+import { useAllUsers } from "../hooks/api/use-all-users.new";
+import { useDeleteUser } from "../hooks/api/use-delete-user.new";
 
 const Nombres = () => {
-    const { isLoading, users, refetch } = useAllUsers();
-    const { isDeleting, deleteUser } = useDeleteUser();
+    const { isLoading, data: users, refetch } = useAllUsers();
+    const { isPending: isDeleting, mutate: deleteUser } = useDeleteUser();
     const navigate = useNavigate();
     const { selectedUsers, handleCheckboxChange } = useSelectedUsers();
 
@@ -15,7 +16,7 @@ const Nombres = () => {
 
     return (
         <>
-            <button onClick={refetch} disabled={isLoading}>Recargar</button>
+            <button onClick={() => refetch()} disabled={isLoading}>Recargar</button>
             {isLoading && <p>Cargando...</p>}
             <table>
                 <thead>
@@ -46,7 +47,7 @@ const Nombres = () => {
                                 <button onClick={() => navigate(`/modificar/${user.id}`)}>
                                     Modificar Nombre
                                 </button>
-                                <button onClick={() => deleteUser(user.id, refetch)} disabled={isDeleting}>
+                                <button onClick={() => deleteUser(user.id)} disabled={isDeleting}>
                                     Borrar
                                 </button>
                             </td>
